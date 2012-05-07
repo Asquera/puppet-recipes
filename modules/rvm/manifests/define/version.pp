@@ -49,11 +49,11 @@ define rvm::define::version (
       environment  => "HOME=/home/vagrant",
     }
 
-    file { "cleanup-rvm-set-script":
-      path   => "/tmp/set-default-ruby.sh",
-      ensure => absent,
-      require => Exec["set-default-ruby-$name.sh"],
-    }
+    #file { "cleanup-rvm-set-script":
+    #  path   => "/tmp/set-default-ruby.sh",
+    #  ensure => absent,
+    #  require => Exec["set-default-ruby-$name.sh"],
+    #}
 
   }
 }
