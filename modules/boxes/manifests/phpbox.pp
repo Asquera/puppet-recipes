@@ -12,9 +12,9 @@ class boxes::phpbox {
     packages => ["libreadline-dev"]
   }
 
-  class {"php::runtime":
+  php::runtime {"5.4.2":
     version => "5.4.2"
   }
   
-  Php::Extension["mcrypt"] -> Php::Extension["readline"] -> Class["php::runtime"]
+  Php::Extension <| |> -> Php::Runtime["5.4.2"]
 }

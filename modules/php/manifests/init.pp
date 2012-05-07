@@ -1,4 +1,6 @@
 class php {
+  $configure_flags = ""
+  
   define download(
         $site="",
         $cwd="",
@@ -14,13 +16,14 @@ class php {
   }
 
   define extension($flag, $packages = []) {
+    $php::configure_flags += " $flag"
 
     package { $packages:
       ensure => present
     }
   }
 
-  class runtime($version, $configure_flags = "") {
+  define runtime($version) {
     Exec { path => ["/bin", "/usr/bin", "/tmp/php-$version"]}
 
     package {["php5-dev", "libxml2-dev"]:
@@ -40,7 +43,7 @@ class php {
     }
 
     exec { "configure": 
-      command => "./configure ${configure_flags}",
+      command => "./configure ${php::configure_flags}",
       cwd => "/tmp/php-$version/"
     }
 
