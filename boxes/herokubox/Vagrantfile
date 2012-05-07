@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+
+
+  config.vm.define :devbox do |devbox|
+    devbox.vm.box = "ubuntu-10.04.3-server-amd64-asq"
+    devbox.vm.box_url = "http://asquera-share.s3.amazonaws.com/boxes/base/ubuntu-10.04.3-server-amd64-asq.box"
+    # uncomment the following line if you want the box to start in gui mode
+    devbox.vm.boot_mode = :gui
+    devbox.vm.network :hostonly, "33.33.33.60"
+    devbox.ssh.forward_agent = true
+
+    devbox.vm.provision :puppet do |puppet|
+      puppet.manifests_path = "./"
+      puppet.manifest_file = "manifest.pp"
+      puppet.module_path = "../../modules"
+      puppet.options = "--verbose --debug"
+    end
+  end
+
+
+end
